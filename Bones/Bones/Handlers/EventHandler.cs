@@ -25,8 +25,7 @@ namespace Bones.Handlers
             await _service.AddModulesAsync(Assembly.GetEntryAssembly(), serviceProdiver);
 
             _client.MessageReceived += HandleCommandAsync;
-            _client.UserJoined += HandleMemberJoin;
-
+            _client.UserJoined += HandleNewMember;
 
             _service.Log += Log;
 
@@ -38,12 +37,10 @@ namespace Bones.Handlers
             return Task.CompletedTask;
         }
 
-        public async Task HandleMemberJoin(SocketGuildUser u)
+        private async Task HandleNewMember(SocketGuildUser user)
         {
-            string RandomBonesMessage = ArrayHandler.WelcomeMsgs[Utilities.GetRandomNumber(0, ArrayHandler.WelcomeMsgs.Length)];
-            string Wlmsg = RandomBonesMessage.Replace("{0}", u.Username.ToString());
-            var channel = _client.GetChannel(953795185417011250) as SocketTextChannel; // Gets the channel to send the message in
-            await channel.SendMessageAsync($"Welcome {u.Mention} to the Bones Discord server!\n{Wlmsg}");
+            ulong bonesChat = 953795185417011250;
+            await user.Guild.GetTextChannel(bonesChat).SendMessageAsync($"Welcome to the Bones discord server!, {user.Mention}!\n");
         }
 
         private async Task HandleCommandAsync(SocketMessage s)
