@@ -40,7 +40,9 @@ namespace Bones.Handlers
         private async Task HandleNewMember(SocketGuildUser user)
         {
             ulong bonesChat = 953797903380533329;
-            await user.Guild.GetTextChannel(bonesChat).SendMessageAsync($"Welcome to the Bones discord server!, {user.Mention}!");
+            string WelcomeMessage = ArrayHandler.WelcomeMsgs[Utilities.GetRandomNumber(0, ArrayHandler.WelcomeMsgs.Length)];
+            string WelcomeMessageToUse = WelcomeMessage.Replace("{0}", user.Username);
+            await user.Guild.GetTextChannel(bonesChat).SendMessageAsync($"Welcome to the Bones discord server!, {user.Mention}!\n {WelcomeMessageToUse}");
         }
 
         private async Task HandleCommandAsync(SocketMessage s)

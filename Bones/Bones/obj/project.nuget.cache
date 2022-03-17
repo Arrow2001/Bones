@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7meA5BL/BYIqi1jZFHbd13QYqGixV8TQc5GgvZN7DLLTU9PtBmriPyt3ScJvrhpgtn4vZK29Wbqk3RU7ZKrKQg==",
+  "dgSpecHash": "vRWVNdIqQpi6A4MsvUyfZJGOCV4QH8tr/eHE7Hjifw3dUgKq4ZNffzUCSwi8v6oUY3ZDz4n6i2LsIh1Bx2iWWw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\IainN\\OneDrive\\Desktop\\Discord\\Bones\\Bones\\Bones\\Bones.csproj",
+  "projectFilePath": "C:\\Users\\IainN\\Desktop\\Bones\\Bones\\Bones\\Bones.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\IainN\\.nuget\\packages\\discord.addons.interactive\\2.0.0\\discord.addons.interactive.2.0.0.nupkg.sha512",
     "C:\\Users\\IainN\\.nuget\\packages\\discord.net.commands\\2.2.0\\discord.net.commands.2.2.0.nupkg.sha512",
