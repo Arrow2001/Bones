@@ -8,7 +8,15 @@ namespace Bones.Handlers
         static public string[] BonesFacts =
         {
             "The femur is the longest bone in the human body.",
-            "There are 206 bones in the human body."
+            "There are 206 bones in the human body.",
+            "There are 26 bones in the human foot.",
+            "The human hand, including the wrist has 54 bones.",
+            "The Stapes (bone in the middle of your ear) is the lightest and smallest bone.",
+            "Bones produce red and white blood cells.",
+            "Children has more bones than an adult.",
+            "The Hyoid is the only bone in the human body that is not connected to another bone in the body.",
+            "The bones in toes are the most fragile bones in the human body.",
+            "Osteoporosis is the most common bone disease."
         };
 
         static public string[] WelcomeMsgs =

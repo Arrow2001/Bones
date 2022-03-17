@@ -6,6 +6,7 @@ using Discord.WebSocket;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using Bones.Handlers;
 
 namespace Bones.Commands
 {
@@ -19,5 +20,9 @@ namespace Bones.Commands
         [Command("avatar")]
         [Alias("pfp")]
         public async Task GrabProfilePicture() => await ReplyAsync(Context.User.GetAvatarUrl().ToString());
+
+        [Command("bonefact")]
+        [Alias("bone fact", "bones fact")]
+        public async Task SendBonesFact() => await ReplyAsync(ArrayHandler.BonesFacts[Utilities.GetRandomNumber(0, ArrayHandler.BonesFacts.Length)]);
     }
 }
