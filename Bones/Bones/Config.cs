@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using Newtonsoft.Json;
-
+using Bones.Handlers;
 namespace Bones
 {
     static class Config
@@ -11,6 +11,8 @@ namespace Bones
 
         static Config()
         {
+            BonesEpisodesHandler.BoneSetup();
+
             if (!Directory.Exists("Resources"))
                 Directory.CreateDirectory("Resources");
 

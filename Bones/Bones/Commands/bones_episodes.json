@@ -5,7 +5,6 @@
 			"synopsis": "Skeletal remains are found in a pond in a national cemetery. Dr Temperance Brennan, who specialises in forensic anthropology, will try to identify the body.",
 			"airdate": "13 September 2005",
 			"director": "Greg Yaitanes",
-			"writer": "Hart Hanson",
 			"image": "https://i.imgur.com/7rkA2ZB.png"
 		},
 		{
@@ -13,7 +12,6 @@
 			"synopsis": "When Dr. Brennan uncovers the identity of a man killed while driving a car registered to a prominent Middle Eastern man with ties to the U.S. government, she and Booth find themselves tracking a terrorist.",
 			"airdate": "20 September 2005",
 			"director": "Allan Kroeker",
-			"writer": "Stephen Nathan",
 			"image": "https://i.imgur.com/AW4P08s.jpg"
 		},
 		{
@@ -21,8 +19,21 @@
 			"synopsis": "Forensic expert Brennan and FBI agent Booth head to an elite prep school where a student was hanged, and must determine if it is suicide or murder.",
 			"airdate": "27 September 2005",
 			"director": "Patrick Norris",
-			"writer": "Hart Hanson",
 			"image": "https://i.imgur.com/7MfC16O.png"
+		},
+		{
+			"title": "The Man In The Bear - S01E04",
+			"synopsis": "Brennan and Booth travel to Washington state to determine how a human arm ended up in the stomach of a black bear.",
+			"airdate": "1 November 2005",
+			"director": "Allan Kroeker",
+			"image": "https://i.imgur.com/0PAZG4w.png"
+		},
+		{
+			"title": "A Boy In A Bush - S01E05",
+			"synopsis": "Brennan identifies remains of a 6-year-old boy who went missing from a local park and determines that he was sexually assaulted before being murdered.",
+			"airdate": "8 November 2005",
+			"director": "Jesús Salvador Treviño",
+			"image": "https://i.imgur.com/zaeCXnE.jpeg"
 		}
 	]
 }

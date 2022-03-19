@@ -9,6 +9,7 @@ using System;
 using Newtonsoft.Json.Linq;
 using Discord;
 using Bones.Currency.UserData;
+using System.Collections.Generic;
 
 namespace Bones.Commands
 {
@@ -58,6 +59,34 @@ namespace Bones.Commands
             embed.AddField($"Last.FM Username", acc.lastFmUsername);
             embed.WithColor(Color.Blue);
             embed.WithThumbnailUrl(Context.User.GetAvatarUrl());
+            await ReplyAsync("", false, embed.Build());
+        }
+
+        public void LoadJson()
+        {
+            
+        }
+        public class Episodes
+        {
+            public string title;
+            public string synopsis;
+            public string airdate;
+            public string director;
+            public string image;
+        }
+        // Get Random Episode
+        [Command("tv")]
+        public async Task GetRandomBonesEpisode()
+        {
+            var Episdoe = BonesEpisodesHandler.BonesEps.Episodes[Utilities.GetRandomNumber(0, BonesEpisodesHandler.BonesEps.Episodes.Length)];
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.WithColor(Color.Blue);
+            embed.WithTitle($"Bones: {Episdoe.episodeTitle}");
+            embed.WithDescription(Episdoe.synopsis);
+            embed.WithImageUrl(Episdoe.image);
+            embed.AddField("Air Date", Episdoe.airdate);
+            embed.AddField("Director", Episdoe.director);
+
             await ReplyAsync("", false, embed.Build());
         }
     }
