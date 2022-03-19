@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using System.IO;
 using System;
 using Newtonsoft.Json.Linq;
+using Discord;
+using Bones.Currency.UserData;
 
 namespace Bones.Commands
 {
@@ -44,11 +46,19 @@ namespace Bones.Commands
             }
         }
 
-        // Grab a random episode of Bones.
-       [Command("tv")]
-       public async Task GetRandomEpisode()
+        // Show the botinfo stored for the user
+        [Command("userinfo")]
+        public async Task ShowUserInfo()
         {
-            // Should grab a random episode from bones_episodes.json and make it into an embed
-       }
+            var acc = UserAccounts.GetAccount(Context.User);
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.WithTitle($"{Context.User.Username}'s UserInfo");
+            embed.AddField($"User ID", acc.UserID);
+            embed.AddField($"Bones", acc.Bones);
+            embed.AddField($"Last.FM Username", acc.lastFmUsername);
+            embed.WithColor(Color.Blue);
+            embed.WithThumbnailUrl(Context.User.GetAvatarUrl());
+            await ReplyAsync("", false, embed.Build());
+        }
     }
 }

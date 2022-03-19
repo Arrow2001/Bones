@@ -21,7 +21,7 @@ namespace Bones.Commands.Last_FM
 
         // Set FM
         [Command("fm set")]
-        [Alias("set fm")]
+        [Alias("set fm", "setfm", "fmset")]
         public async Task setFM([Remainder]string username)
         {
             var acc = UserAccounts.GetAccount(Context.User);
@@ -48,7 +48,13 @@ namespace Bones.Commands.Last_FM
             {
                 footer = "Most Recently Played"; // need to fix
             }
-            string artistLink = "https://last.fm/music/";
+
+            // Total Scrobbles: http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=iain2001&api_key=e21d20db54e49075a60b72239c173277&format=json
+            dynamic totalScrobles = null;
+            using (WebClient client2 = new WebClient())
+                totalScrobles = JsonConvert.DeserializeObject(client2.DownloadString("http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=" + account.lastFmUsername + "&api_key=e21d20db54e49075a60b72239c173277&format=json"));
+
+                string artistLink = "https://last.fm/music/";
             string bLink = stuff.recenttracks.track[0].artist["#text"];
             string cLink = bLink.Replace(" ", "+");
             string LinkToUse = artistLink + cLink;
@@ -58,11 +64,22 @@ namespace Bones.Commands.Last_FM
                     .WithName(account.lastFmUsername)
                     .WithUrl($"https://last.fm/user/" + account.lastFmUsername))
                 .WithColor(Color.Green)
-                .AddField("Track", $"[{stuff.recenttracks.track[0].name.ToString()}]({stuff.recenttracks.track[0].url.ToString()})", true)
                 .AddField("Artist", $"[{stuff.recenttracks.track[0].artist["#text"].ToString()}]({LinkToUse})", true)
+                .AddField("Track", $"[{stuff.recenttracks.track[0].name.ToString()}]({stuff.recenttracks.track[0].url.ToString()})", true)
                 .WithThumbnailUrl(stuff.recenttracks.track[0].image[3]["#text"].ToString())
-                .WithFooter(footer)
+                .WithFooter($"{footer} | Total Scrobbles: {totalScrobles.user.playcount.ToString()}")
                 .Build()) ;
+        }
+
+        // Clear Last.FM
+        [Command("clearfm")]
+        [Alias("clear fm", "fm clear", "fmclear")]
+        public async Task ClearFM()
+        {
+            var account = UserAccounts.GetAccount(Context.User);
+            account.lastFmUsername = "not set";
+            UserAccounts.SaveAccounts();
+            await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention} you have cleared your last.fm account", Color.Blue, "Do .setfm to set you last.fm username.", "");
         }
     }
 }
