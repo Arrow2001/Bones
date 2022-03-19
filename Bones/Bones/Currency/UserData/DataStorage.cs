@@ -19,6 +19,7 @@ namespace Bones.Currency.UserData
             return JsonConvert.DeserializeObject<List<UserAccount>>(json);
         }
 
+        
         public static bool SaveExists(string filePath) => File.Exists(filePath);
     }
 }

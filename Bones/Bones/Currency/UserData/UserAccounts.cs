@@ -38,7 +38,8 @@ namespace Bones.Currency.UserData
             var newAccount = new UserAccount
             {
                 UserID = id,
-                Bones = 0
+                Bones = 0,
+                lastFmUsername = "not set"
             };
             accounts.Add(newAccount);
             SaveAccounts();

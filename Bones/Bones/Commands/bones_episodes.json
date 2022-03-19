@@ -1,0 +1,28 @@
+﻿{
+	"Episodes": [
+		{
+			"title": "Pilot - S01E01",
+			"synopsis": "Skeletal remains are found in a pond in a national cemetery. Dr Temperance Brennan, who specialises in forensic anthropology, will try to identify the body.",
+			"airdate": "13 September 2005",
+			"director": "Greg Yaitanes",
+			"writer": "Hart Hanson",
+			"image": "https://i.imgur.com/7rkA2ZB.png"
+		},
+		{
+			"title": "The Man In The SUV - S01E02",
+			"synopsis": "When Dr. Brennan uncovers the identity of a man killed while driving a car registered to a prominent Middle Eastern man with ties to the U.S. government, she and Booth find themselves tracking a terrorist.",
+			"airdate": "20 September 2005",
+			"director": "Allan Kroeker",
+			"writer": "Stephen Nathan",
+			"image": "https://i.imgur.com/AW4P08s.jpg"
+		},
+		{
+			"title": "A Boy In The Tree - S01E03",
+			"synopsis": "Forensic expert Brennan and FBI agent Booth head to an elite prep school where a student was hanged, and must determine if it is suicide or murder.",
+			"airdate": "27 September 2005",
+			"director": "Patrick Norris",
+			"writer": "Hart Hanson",
+			"image": "https://i.imgur.com/7MfC16O.png"
+		}
+	]
+}

@@ -3,6 +3,10 @@ using Discord.WebSocket;
 using System.Threading.Tasks;
 using Bones.Handlers;
 using Bones.Preconditions;
+using Newtonsoft.Json;
+using System.IO;
+using System;
+using Newtonsoft.Json.Linq;
 
 namespace Bones.Commands
 {
@@ -40,6 +44,11 @@ namespace Bones.Commands
             }
         }
 
-
+        // Grab a random episode of Bones.
+       [Command("tv")]
+       public async Task GetRandomEpisode()
+        {
+            // Should grab a random episode from bones_episodes.json and make it into an embed
+       }
     }
 }

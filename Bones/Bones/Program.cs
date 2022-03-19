@@ -16,6 +16,7 @@ namespace Bones
         public async Task StartAsync()
         {
             if (Config.bot.DiscordBotToken == "" || Config.bot.DiscordBotToken == null) return;
+            if (Config.apiKey.LastFMAPIKey == "" || Config.apiKey.LastFMAPIKey == null) return;
             _client = new DiscordSocketClient(new DiscordSocketConfig { LogLevel = LogSeverity.Verbose, AlwaysDownloadUsers = true, MessageCacheSize = 100, GatewayIntents = GatewayIntents.Guilds | GatewayIntents.GuildMembers | GatewayIntents.GuildMessages });
             _client.Log += Log;
 

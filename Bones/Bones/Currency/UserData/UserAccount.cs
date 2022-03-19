@@ -8,5 +8,8 @@ namespace Bones.Currency.UserData
     {
         public ulong UserID { get; set; }
         public int Bones { get; set; }
+        public string lastFmUsername { get; set; }
     }
+
+    
 }

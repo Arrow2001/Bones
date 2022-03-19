@@ -36,20 +36,32 @@ namespace Bones.Commands
         [Command("gamble")]
         public async Task GambleBones(int amount)
         {
-            Random rnd = new Random();
-            int WinOrLose = rnd.Next(0, 100);
             var UserAccount = UserAccounts.GetAccount(Context.User);
-            if (WinOrLose <= 50)
+            if (amount > UserAccount.Bones)
             {
-                UserAccount.Bones -= amount;
-                UserAccounts.SaveAccounts();
-                await Utilities.SendEmbed(Context.Channel, "You lost!", $"You rolled {WinOrLose}/100! You now have {UserAccount.Bones}", Color.Red, "", BoneIcon);
-            } else if (WinOrLose > 50)
+                await Utilities.SendEmbed(Context.Channel, "Error!", "You do not have that many bones!", Color.Red, "", BoneIcon);
+            }
+            else if (amount <= 0)
             {
-                UserAccount.Bones += amount;
-                UserAccounts.SaveAccounts();
-                await Utilities.SendEmbed(Context.Channel, "You won!", $"You rolled {WinOrLose}/100! You now have {UserAccount.Bones}", Color.Blue, "", BoneIcon);
-            }    
+                await Utilities.SendEmbed(Context.Channel, "Error!", "You can't gamble 0 bones!", Color.Red, "", BoneIcon);
+            }
+            else
+            {
+                Random rnd = new Random();
+                int WinOrLose = rnd.Next(0, 100);
+                if (WinOrLose <= 50)
+                {
+                    UserAccount.Bones -= amount;
+                    UserAccounts.SaveAccounts();
+                    await Utilities.SendEmbed(Context.Channel, "You lost!", $"You rolled {WinOrLose}/100! You now have {UserAccount.Bones}", Color.Red, "", BoneIcon);
+                }
+                else if (WinOrLose > 50)
+                {
+                    UserAccount.Bones += amount;
+                    UserAccounts.SaveAccounts();
+                    await Utilities.SendEmbed(Context.Channel, "You won!", $"You rolled {WinOrLose}/100! You now have {UserAccount.Bones}", Color.Blue, "", BoneIcon);
+                }
+            }
         }
 
         [Command("sell colour")]
@@ -69,7 +81,7 @@ namespace Bones.Commands
             }
             await Utilities.SendEmbed(Context.Channel, "Bones Refund!", $"{Context.User.Mention} has sold their colour role for 1000 Bones!", Color.Blue, "", BoneIcon);
         }
-
+       
         // Bone Store
         [Command("store")]
         public async Task ShowBoneStore() => await BoneHandler.DisplayBoneStore(Context, (SocketGuildUser)Context.User, Context.Channel);
