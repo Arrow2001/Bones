@@ -1,23 +1,11 @@
 ﻿using System;
 using Discord;
-using System.Linq;
 using Discord.Commands;
 using Discord.WebSocket;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 using Bones.Currency;
 using Bones.Currency.UserData;
 using Bones.Preconditions;
-using System;
-using Discord;
-using System.Linq;
-using System.Text;
-using Discord.Commands;
-using Discord.WebSocket;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Bones.Currency.UserData;
 
 namespace Bones.Commands
 {

@@ -1,8 +1,5 @@
 ﻿using System;
 using Discord;
-using System.IO;
-using System.Net;
-using System.Drawing;
 using Discord.WebSocket;
 using System.Threading.Tasks;
 

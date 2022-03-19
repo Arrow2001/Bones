@@ -1,11 +1,9 @@
 ﻿using System;
 using Discord;
 using System.Linq;
-using System.Text;
 using Discord.Commands;
 using Discord.WebSocket;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using Bones.Currency.UserData;
 
 namespace Bones.Currency

@@ -1,11 +1,6 @@
-﻿using System;
-using Discord;
-using System.Linq;
-using Discord.Commands;
+﻿using Discord.Commands;
 using Discord.WebSocket;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 using Bones.Handlers;
 using Bones.Preconditions;
 
