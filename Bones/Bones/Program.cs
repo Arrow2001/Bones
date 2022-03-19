@@ -2,7 +2,6 @@
 using Discord;
 using Discord.WebSocket;
 using System.Threading.Tasks;
-using Discord.Addons.Interactive;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bones
@@ -17,7 +16,7 @@ namespace Bones
         public async Task StartAsync()
         {
             if (Config.bot.DiscordBotToken == "" || Config.bot.DiscordBotToken == null) return;
-            _client = new DiscordSocketClient(new DiscordSocketConfig { LogLevel = LogSeverity.Verbose, AlwaysDownloadUsers = true, MessageCacheSize = 100 });
+            _client = new DiscordSocketClient(new DiscordSocketConfig { LogLevel = LogSeverity.Verbose, AlwaysDownloadUsers = true, MessageCacheSize = 100, GatewayIntents = GatewayIntents.Guilds | GatewayIntents.GuildMembers | GatewayIntents.GuildMessages });
             _client.Log += Log;
 
             await _client.LoginAsync(TokenType.Bot, Config.bot.DiscordBotToken);

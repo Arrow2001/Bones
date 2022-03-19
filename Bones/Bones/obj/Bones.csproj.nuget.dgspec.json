@@ -40,9 +40,9 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
-            "Discord.Addons.Interactive": {
+            "Discord.InteractivityAddon.Labs": {
               "target": "Package",
-              "version": "[2.0.0, )"
+              "version": "[2.4.1-labs-20212511.1, )"
             },
             "Discord.Net.Labs": {
               "target": "Package",

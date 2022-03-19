@@ -53,4 +53,4 @@ C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\obj\Debug\netcoreapp3.
 C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\obj\Debug\netcoreapp3.1\Bones.pdb
 C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\obj\Debug\netcoreapp3.1\Bones.genruntimeconfig.cache
 C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\bin\Debug\netcoreapp3.1\Discord.Addons.Interactive.dll
-C:\Users\IainN\Desktop\Bones\Bones\Bones\bin\Debug\netcoreapp3.1\Discord.Addons.Interactive.dll
+C:\Users\IainN\Desktop\Bones\Bones\Bones\bin\Debug\netcoreapp3.1\Discord.InteractivityAddon.Labs.dll

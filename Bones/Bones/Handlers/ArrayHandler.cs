@@ -29,13 +29,16 @@ namespace Bones.Handlers
             "This conspiracy thing is a lot more intense when {0} is in the middle of it!",
             "You kidding? {0} being abducted by men in black? It’s a dream come true!",
             "{0}’s always the murder victim!",
-            "{0} doesn’t feel pressure to act or do or say anything that they don't want to, and no one, no one, can make them. That’s what makes then {0}!",
+            "{0} doesn’t feel pressure to act or do or say anything that they don't want to, and no one, no one, can make them. That’s what makes them {0}!",
             "You know what, {0}? Sometimes I think your heart muscle is bigger than people give you credit for!",
             "{0} you arrested a clown! Your therapist is going to be pissed!",
             "{0} just wanted to see what would happen when you toss a frozen pig into a woodchipper!",
             "We don't need a warrant, this land belongs to {0}!",
             "{0} is hot blooded, {0} has a fever of a hundred and three!",
-            "We all know that Aubrey loves his food but what you don't know is he loves {0} more!"
+            "We all know that Aubrey loves his food but what you don't know is he loves {0} even more!",
+            "FBI Agent Discord, {0} identifies bodies for us. They also write books!",
+            "Squints don't solve murders, {0} does!",
+            "A body, covered in acid. Yeah, that should help {0} with the nausea!"
         };
     }
 }

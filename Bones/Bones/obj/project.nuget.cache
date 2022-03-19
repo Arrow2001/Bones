@@ -1,12 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "vRWVNdIqQpi6A4MsvUyfZJGOCV4QH8tr/eHE7Hjifw3dUgKq4ZNffzUCSwi8v6oUY3ZDz4n6i2LsIh1Bx2iWWw==",
+  "dgSpecHash": "zSRKgg1K1/s5ahGWqWXhd5n6cbUDLF6DCPdQt47bSYYCeX0RCC2A8W0II924xaETZWqZ93WOLurUOfxRRMx0fQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\IainN\\Desktop\\Bones\\Bones\\Bones\\Bones.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\IainN\\.nuget\\packages\\discord.addons.interactive\\2.0.0\\discord.addons.interactive.2.0.0.nupkg.sha512",
-    "C:\\Users\\IainN\\.nuget\\packages\\discord.net.commands\\2.2.0\\discord.net.commands.2.2.0.nupkg.sha512",
-    "C:\\Users\\IainN\\.nuget\\packages\\discord.net.core\\2.2.0\\discord.net.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\IainN\\.nuget\\packages\\discord.interactivityaddon.labs\\2.4.1-labs-20212511.1\\discord.interactivityaddon.labs.2.4.1-labs-20212511.1.nupkg.sha512",
     "C:\\Users\\IainN\\.nuget\\packages\\discord.net.labs\\3.6.1\\discord.net.labs.3.6.1.nupkg.sha512",
     "C:\\Users\\IainN\\.nuget\\packages\\discord.net.labs.commands\\3.6.1\\discord.net.labs.commands.3.6.1.nupkg.sha512",
     "C:\\Users\\IainN\\.nuget\\packages\\discord.net.labs.core\\3.6.1\\discord.net.labs.core.3.6.1.nupkg.sha512",
@@ -14,8 +12,6 @@
     "C:\\Users\\IainN\\.nuget\\packages\\discord.net.labs.rest\\3.6.1\\discord.net.labs.rest.3.6.1.nupkg.sha512",
     "C:\\Users\\IainN\\.nuget\\packages\\discord.net.labs.webhook\\3.6.1\\discord.net.labs.webhook.3.6.1.nupkg.sha512",
     "C:\\Users\\IainN\\.nuget\\packages\\discord.net.labs.websocket\\3.6.1\\discord.net.labs.websocket.3.6.1.nupkg.sha512",
-    "C:\\Users\\IainN\\.nuget\\packages\\discord.net.rest\\2.2.0\\discord.net.rest.2.2.0.nupkg.sha512",
-    "C:\\Users\\IainN\\.nuget\\packages\\discord.net.websocket\\2.2.0\\discord.net.websocket.2.2.0.nupkg.sha512",
     "C:\\Users\\IainN\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\IainN\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\IainN\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",

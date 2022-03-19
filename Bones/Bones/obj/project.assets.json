@@ -2,43 +2,17 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "Discord.Addons.Interactive/2.0.0": {
+      "Discord.InteractivityAddon.Labs/2.4.1-labs-20212511.1": {
         "type": "package",
         "dependencies": {
-          "Discord.Net.Commands": "2.2.0",
-          "Discord.Net.WebSocket": "2.2.0"
+          "Discord.Net.Labs.Core": "3.3.3",
+          "Discord.Net.Labs.WebSocket": "3.3.3"
         },
         "compile": {
-          "lib/netstandard2.0/Discord.Addons.Interactive.dll": {}
+          "lib/netstandard2.0/Discord.InteractivityAddon.Labs.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Discord.Addons.Interactive.dll": {}
-        }
-      },
-      "Discord.Net.Commands/2.2.0": {
-        "type": "package",
-        "dependencies": {
-          "Discord.Net.Core": "2.2.0"
-        },
-        "compile": {
-          "lib/netstandard2.1/Discord.Net.Commands.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.1/Discord.Net.Commands.dll": {}
-        }
-      },
-      "Discord.Net.Core/2.2.0": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "12.0.2",
-          "System.Collections.Immutable": "1.3.1",
-          "System.Interactive.Async": "4.0.0"
-        },
-        "compile": {
-          "lib/netstandard2.1/Discord.Net.Core.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.1/Discord.Net.Core.dll": {}
+          "lib/netstandard2.0/Discord.InteractivityAddon.Labs.dll": {}
         }
       },
       "Discord.Net.Labs/3.6.1": {
@@ -134,31 +108,6 @@
           "lib/netstandard2.1/Discord.Net.WebSocket.dll": {}
         }
       },
-      "Discord.Net.Rest/2.2.0": {
-        "type": "package",
-        "dependencies": {
-          "Discord.Net.Core": "2.2.0"
-        },
-        "compile": {
-          "lib/netstandard2.1/Discord.Net.Rest.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.1/Discord.Net.Rest.dll": {}
-        }
-      },
-      "Discord.Net.WebSocket/2.2.0": {
-        "type": "package",
-        "dependencies": {
-          "Discord.Net.Core": "2.2.0",
-          "Discord.Net.Rest": "2.2.0"
-        },
-        "compile": {
-          "lib/netstandard2.1/Discord.Net.WebSocket.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.1/Discord.Net.WebSocket.dll": {}
-        }
-      },
       "Microsoft.Extensions.DependencyInjection.Abstractions/5.0.0": {
         "type": "package",
         "compile": {
@@ -231,50 +180,17 @@
     }
   },
   "libraries": {
-    "Discord.Addons.Interactive/2.0.0": {
-      "sha512": "j/bkGeDniPuODOOC+3ZpKvLmoG0z1NHSZrVu6bnaUEYd0tMY4TxaIwl36ue7fK9MXrqQc8VcjcDnvM6JX+V6HA==",
+    "Discord.InteractivityAddon.Labs/2.4.1-labs-20212511.1": {
+      "sha512": "mnGc+sMVx4yr4/NVzMgem3y0/VWGJu2PaZ/lprqVNDKtpRrioafXtYtoKb6fFg7Y2ktQZJ59+oxuaJEfrq1Tgw==",
       "type": "package",
-      "path": "discord.addons.interactive/2.0.0",
+      "path": "discord.interactivityaddon.labs/2.4.1-labs-20212511.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "discord.addons.interactive.2.0.0.nupkg.sha512",
-        "discord.addons.interactive.nuspec",
-        "lib/netstandard2.0/Discord.Addons.Interactive.dll"
-      ]
-    },
-    "Discord.Net.Commands/2.2.0": {
-      "sha512": "hg3w+pyXOy+I4D5VWfax0IUdnmz8Ji9SOdx+8KjJXqccUVnulx6HkKc5q87BukEbOWEJuyzxo1e+pe+xnW0bgw==",
-      "type": "package",
-      "path": "discord.net.commands/2.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "discord.net.commands.2.2.0.nupkg.sha512",
-        "discord.net.commands.nuspec",
-        "lib/net461/Discord.Net.Commands.dll",
-        "lib/net461/Discord.Net.Commands.xml",
-        "lib/netstandard2.0/Discord.Net.Commands.dll",
-        "lib/netstandard2.0/Discord.Net.Commands.xml",
-        "lib/netstandard2.1/Discord.Net.Commands.dll",
-        "lib/netstandard2.1/Discord.Net.Commands.xml"
-      ]
-    },
-    "Discord.Net.Core/2.2.0": {
-      "sha512": "0iEjPeqm+Ez481WlRV7IsncfXZoPcae0S2wP14agtZJ6HmT1C8FdPnL/gRmz2Cqs4t8lHukqD9i7nlknaSRkLg==",
-      "type": "package",
-      "path": "discord.net.core/2.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "discord.net.core.2.2.0.nupkg.sha512",
-        "discord.net.core.nuspec",
-        "lib/net461/Discord.Net.Core.dll",
-        "lib/net461/Discord.Net.Core.xml",
-        "lib/netstandard2.0/Discord.Net.Core.dll",
-        "lib/netstandard2.0/Discord.Net.Core.xml",
-        "lib/netstandard2.1/Discord.Net.Core.dll",
-        "lib/netstandard2.1/Discord.Net.Core.xml"
+        "LICENSE",
+        "discord.interactivityaddon.labs.2.4.1-labs-20212511.1.nupkg.sha512",
+        "discord.interactivityaddon.labs.nuspec",
+        "lib/netstandard2.0/Discord.InteractivityAddon.Labs.dll"
       ]
     },
     "Discord.Net.Labs/3.6.1": {
@@ -408,40 +324,6 @@
         "lib/net5.0/Discord.Net.WebSocket.xml",
         "lib/net6.0/Discord.Net.WebSocket.dll",
         "lib/net6.0/Discord.Net.WebSocket.xml",
-        "lib/netstandard2.0/Discord.Net.WebSocket.dll",
-        "lib/netstandard2.0/Discord.Net.WebSocket.xml",
-        "lib/netstandard2.1/Discord.Net.WebSocket.dll",
-        "lib/netstandard2.1/Discord.Net.WebSocket.xml"
-      ]
-    },
-    "Discord.Net.Rest/2.2.0": {
-      "sha512": "tTRjurjFRfSSfGB0kOAOqzagRqXPz473U50tzt19f8OD5/9Z0EyTu5WE898wU135Um+Vb3L8XTvhZHdAmOKhGw==",
-      "type": "package",
-      "path": "discord.net.rest/2.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "discord.net.rest.2.2.0.nupkg.sha512",
-        "discord.net.rest.nuspec",
-        "lib/net461/Discord.Net.Rest.dll",
-        "lib/net461/Discord.Net.Rest.xml",
-        "lib/netstandard2.0/Discord.Net.Rest.dll",
-        "lib/netstandard2.0/Discord.Net.Rest.xml",
-        "lib/netstandard2.1/Discord.Net.Rest.dll",
-        "lib/netstandard2.1/Discord.Net.Rest.xml"
-      ]
-    },
-    "Discord.Net.WebSocket/2.2.0": {
-      "sha512": "jZb/Ae5w0K0dnGQETcSJu0qA3j5vgG7Dtl27pAkiug90omFs5SB20WNReo25WoJuidPAa6gmaBEWm5RPaBghXw==",
-      "type": "package",
-      "path": "discord.net.websocket/2.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "discord.net.websocket.2.2.0.nupkg.sha512",
-        "discord.net.websocket.nuspec",
-        "lib/net461/Discord.Net.WebSocket.dll",
-        "lib/net461/Discord.Net.WebSocket.xml",
         "lib/netstandard2.0/Discord.Net.WebSocket.dll",
         "lib/netstandard2.0/Discord.Net.WebSocket.xml",
         "lib/netstandard2.1/Discord.Net.WebSocket.dll",
@@ -643,7 +525,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Discord.Addons.Interactive >= 2.0.0",
+      "Discord.InteractivityAddon.Labs >= 2.4.1-labs-20212511.1",
       "Discord.Net.Labs >= 3.6.1"
     ]
   },
@@ -686,9 +568,9 @@
       "netcoreapp3.1": {
         "targetAlias": "netcoreapp3.1",
         "dependencies": {
-          "Discord.Addons.Interactive": {
+          "Discord.InteractivityAddon.Labs": {
             "target": "Package",
-            "version": "[2.0.0, )"
+            "version": "[2.4.1-labs-20212511.1, )"
           },
           "Discord.Net.Labs": {
             "target": "Package",

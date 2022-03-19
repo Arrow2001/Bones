@@ -37,14 +37,6 @@ namespace Bones.Handlers
             return Task.CompletedTask;
         }
 
-        private async Task HandleNewMember(SocketGuildUser user)
-        {
-            ulong bonesChat = 953797903380533329;
-            string WelcomeMessage = ArrayHandler.WelcomeMsgs[Utilities.GetRandomNumber(0, ArrayHandler.WelcomeMsgs.Length)];
-            string WelcomeMessageToUse = WelcomeMessage.Replace("{0}", user.Username);
-            await user.Guild.GetTextChannel(bonesChat).SendMessageAsync($"Welcome to the Bones discord server!, {user.Mention}!\n {WelcomeMessageToUse}");
-        }
-
         private async Task HandleCommandAsync(SocketMessage s)
         {
             SocketUserMessage msg = s as SocketUserMessage;
@@ -57,6 +49,14 @@ namespace Bones.Handlers
                 await _service.ExecuteAsync(context, argPos, serviceProdiver, MultiMatchHandling.Exception);
 
             string m = msg.Content.ToLower();
+        }
+
+        private async Task HandleNewMember(SocketGuildUser user)
+        {
+            ulong bonesChat = 953795185417011250;
+            string WelcomeMessage = ArrayHandler.WelcomeMsgs[Utilities.GetRandomNumber(0, ArrayHandler.WelcomeMsgs.Length)];
+            string WelcomeMessageToUse = WelcomeMessage.Replace("{0}", $"**{user.Username}**");
+            await user.Guild.GetTextChannel(bonesChat).SendMessageAsync($"Welcome to the Bones discord server!, {user.Mention}!\n{WelcomeMessageToUse}");
         }
     }
 }
