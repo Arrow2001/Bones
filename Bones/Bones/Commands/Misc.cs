@@ -75,7 +75,7 @@ namespace Bones.Commands
             public string image;
         }
         // Get Random Episode
-        [Command("tv")]
+        [Command("tv", RunMode = RunMode.Async)]
         public async Task GetRandomBonesEpisode()
         {
             var Episdoe = BonesEpisodesHandler.BonesEps.Episodes[Utilities.GetRandomNumber(0, BonesEpisodesHandler.BonesEps.Episodes.Length)];

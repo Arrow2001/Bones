@@ -13,7 +13,7 @@ namespace Bones.Handlers
 
         public static void BoneSetup()
         {
-                BonesEps = JsonConvert.DeserializeObject<BonesEps>(System.IO.File.ReadAllText(@"C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\Commands\bones_episodes.json"));
+                BonesEps = JsonConvert.DeserializeObject<BonesEps>(System.IO.File.ReadAllText(@"C:\Users\IainN\Desktop\Bones\Bones\Bones\Commands\bones_episodes.json"));
         }
 
     }
