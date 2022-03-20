@@ -108,6 +108,30 @@ namespace Bones.Commands.Last_FM
             {
                 timeframe = "7day";
             }
+            // Just make the options look more readable for the embed.
+            string timeframeForEmbed = "";
+            switch (timeframe)
+            {
+                case "7day":
+                    timeframeForEmbed = "Last 7 Days";
+                    break;
+                case "1month":
+                    timeframeForEmbed = "Last 30 Days";
+                    break;
+                case "3month":
+                    timeframeForEmbed = "Last 90 Days";
+                    break;
+                case "6month":
+                    timeframeForEmbed = "Last 180 Days";
+                    break;
+                case "12month":
+                    timeframeForEmbed = "Last 365 Days";
+                    break;
+                case "all":
+                    timeframeForEmbed = "All Time";
+                    break;
+            }
+
             if (timeframe == "7day" || timeframe == "1month" || timeframe == "3month" || timeframe == "6month" || timeframe == "12month" || timeframe == "all")
             {
                 var acc = UserAccounts.GetAccount(Context.User);
@@ -118,17 +142,24 @@ namespace Bones.Commands.Last_FM
                     topSongs = JsonConvert.DeserializeObject(clien3.DownloadString(link));
 
                 int number = 10;
-                StringBuilder sb = new StringBuilder();
+                StringBuilder Titlesb = new StringBuilder();
+                string artistLink = "https://www.last.fm/music/";
+                string songLink = "https://www.last.fm/music/";
                 for (int i = 0; i < number; i++)
                 {
-                    sb.Append($"{topSongs.toptracks.track[i].name}\n");
+                    string artistname = topSongs.toptracks.track[i].artist.name;
+                    string songname = topSongs.toptracks.track[i].name;
+                    string artistLinkName = artistname.Replace(" ", "+");
+                    string songLinkName = songname.Replace(" ", "+");
+                    Titlesb.Append($"{i + 1}. [{artistname}]({artistLink+artistLinkName}) - [{songname}]({songLink+artistLinkName}/_/{songLinkName}): **{topSongs.toptracks.track[i].playcount.ToString("#,##0")}** plays\n");
                 }
-                await Context.Channel.SendMessageAsync(sb.ToString());
 
                 EmbedBuilder embed = new EmbedBuilder();
-                embed.WithTitle($"Top Tracks | {timeframe}");
+                embed.WithTitle($"Top Tracks | {timeframeForEmbed}");
                 embed.WithColor(Color.Blue);
-                embed.WithDescription($"{sb.ToString()}");
+                embed.WithDescription($"{Titlesb}");
+               
+                await ReplyAsync("", false, embed.Build());
             }
             else
             {               
