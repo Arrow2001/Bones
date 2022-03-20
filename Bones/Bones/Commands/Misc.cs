@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using Discord;
 using Bones.Currency.UserData;
 using System.Collections.Generic;
+using Discord.Rest;
 
 namespace Bones.Commands
 {
@@ -62,18 +63,6 @@ namespace Bones.Commands
             await ReplyAsync("", false, embed.Build());
         }
 
-        public void LoadJson()
-        {
-            
-        }
-        public class Episodes
-        {
-            public string title;
-            public string synopsis;
-            public string airdate;
-            public string director;
-            public string image;
-        }
         // Get Random Episode
         [Command("tv", RunMode = RunMode.Async)]
         public async Task GetRandomBonesEpisode()
@@ -88,6 +77,25 @@ namespace Bones.Commands
             embed.AddField("Director", Episdoe.director);
 
             await ReplyAsync("", false, embed.Build());
+        }
+
+        // help menu
+        [Command("help")]
+        public async Task HelpMenu()
+        {
+            RestUserMessage msg;
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.WithTitle("Help Menu");
+            embed.AddField(".ping", "Replies with 'Pong!'");
+            embed.AddField(".avatar", "Shows someone's profile picture");
+            embed.AddField(".bonefact", "Sends a random fact about bones");
+            embed.AddField(".userinfo", "Shows your information that is saved in the bot");
+            embed.AddField(".tv", "Sends a random episode of Bones");
+            embed.WithColor(Color.Blue);
+            msg = await Context.Channel.SendMessageAsync("", false, embed.Build());
+
+            await msg.AddReactionAsync(new Emoji("◀️"));
+            await msg.AddReactionAsync(new Emoji("▶️"));
         }
     }
 }

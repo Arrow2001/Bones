@@ -23,7 +23,7 @@ namespace Bones
             await _client.LoginAsync(TokenType.Bot, Config.bot.DiscordBotToken);
             await _client.StartAsync();
 
-            
+
             // displays a activity
             await _client.SetGameAsync("Hot Blooded", null, ActivityType.Listening);
 
@@ -37,8 +37,6 @@ namespace Bones
         {
             Console.WriteLine(msg.Message);
             return Task.CompletedTask;
-        }
-
-
+        }     
     }
 }

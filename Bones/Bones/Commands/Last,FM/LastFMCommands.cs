@@ -22,12 +22,20 @@ namespace Bones.Commands.Last_FM
         // Set FM
         [Command("fm set")]
         [Alias("set fm", "setfm", "fmset")]
-        public async Task setFM([Remainder]string username)
+        public async Task setFM([Remainder] string username)
         {
             var acc = UserAccounts.GetAccount(Context.User);
-            acc.lastFmUsername = username;
-            UserAccounts.SaveAccounts();
-            await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention}, you have now set your last.fm username to: {username}", Discord.Color.Blue, "", "");
+            if (acc.lastFmUsername != "not set")
+            {
+                await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention} you already have set your last.fm username", Color.Blue, "Do .clearfm to remove it.", "");
+            }
+            else
+            {
+                acc.lastFmUsername = username;
+                UserAccounts.SaveAccounts();
+                await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention}, you have now set your last.fm username to: {username}", Discord.Color.Blue, "", "");
+
+            }
         }
 
         // Show Now Playing
@@ -36,39 +44,47 @@ namespace Bones.Commands.Last_FM
         {
             string footer = "";
             var account = UserAccounts.GetAccount(Context.User);
-            string link1 = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=";
-            dynamic stuff = null;
-            using (WebClient client = new WebClient())
-                stuff = JsonConvert.DeserializeObject(client.DownloadString(link1 + account.lastFmUsername + $"&api_key={Config.apiKey.LastFMAPIKey}&format=json"));
-            
-            if (stuff.recenttracks.track[0]["@attr"].nowplaying == "true")
+            if (account.lastFmUsername == "not set")
             {
-                 footer = "Now Playing";
-            } else
-            {
-                footer = "Most Recently Played"; // need to fix
+                await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention}, you don't have your Last.FM set up.", Color.Blue, "Do .setfm to set up your last.fm", "");
             }
+            else
+            {
+                string link1 = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=";
+                dynamic stuff = null;
+                using (WebClient client = new WebClient())
+                    stuff = JsonConvert.DeserializeObject(client.DownloadString(link1 + account.lastFmUsername + $"&api_key={Config.apiKey.LastFMAPIKey}&format=json"));
 
-            // Total Scrobbles: http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=iain2001&api_key=e21d20db54e49075a60b72239c173277&format=json
-            dynamic totalScrobles = null;
-            using (WebClient client2 = new WebClient())
-                totalScrobles = JsonConvert.DeserializeObject(client2.DownloadString("http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=" + account.lastFmUsername + "&api_key=e21d20db54e49075a60b72239c173277&format=json"));
+                if (stuff.recenttracks.track[0]["@attr"] != null)
+                {
+                    footer = "Now Playing";
+                }
+                else
+                {
+                    footer = "Most Recent Track";
+                }
+
+                // Total Scrobbles: http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=iain2001&api_key=e21d20db54e49075a60b72239c173277&format=json
+                dynamic totalScrobles = null;
+                using (WebClient client2 = new WebClient())
+                    totalScrobles = JsonConvert.DeserializeObject(client2.DownloadString("http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=" + account.lastFmUsername + "&api_key=e21d20db54e49075a60b72239c173277&format=json"));
 
                 string artistLink = "https://last.fm/music/";
-            string bLink = stuff.recenttracks.track[0].artist["#text"];
-            string cLink = bLink.Replace(" ", "+");
-            string LinkToUse = artistLink + cLink;
-            await Context.Channel.SendMessageAsync(null, false, new EmbedBuilder()
-                .WithAuthor(new EmbedAuthorBuilder()
-                    .WithIconUrl(Context.User.GetAvatarUrl())
-                    .WithName(account.lastFmUsername)
-                    .WithUrl($"https://last.fm/user/" + account.lastFmUsername))
-                .WithColor(Color.Green)
-                .AddField("Artist", $"[{stuff.recenttracks.track[0].artist["#text"].ToString()}]({LinkToUse})", true)
-                .AddField("Track", $"[{stuff.recenttracks.track[0].name.ToString()}]({stuff.recenttracks.track[0].url.ToString()})", true)
-                .WithThumbnailUrl(stuff.recenttracks.track[0].image[3]["#text"].ToString())
-                .WithFooter($"{footer} | Total Scrobbles: {totalScrobles.user.playcount.ToString()}")
-                .Build()) ;
+                string bLink = stuff.recenttracks.track[0].artist["#text"];
+                string cLink = bLink.Replace(" ", "+");
+                string LinkToUse = artistLink + cLink;
+                await Context.Channel.SendMessageAsync(null, false, new EmbedBuilder()
+                    .WithAuthor(new EmbedAuthorBuilder()
+                        .WithIconUrl(Context.User.GetAvatarUrl())
+                        .WithName(account.lastFmUsername)
+                        .WithUrl($"https://last.fm/user/" + account.lastFmUsername))
+                    .WithColor(Color.Green)
+                    .AddField("Artist", $"[{stuff.recenttracks.track[0].artist["#text"].ToString()}]({LinkToUse})", true)
+                    .AddField("Track", $"[{stuff.recenttracks.track[0].name.ToString()}]({stuff.recenttracks.track[0].url.ToString()})", true)
+                    .WithThumbnailUrl(stuff.recenttracks.track[0].image[3]["#text"].ToString())
+                    .WithFooter($"{footer} | Total Scrobbles: {totalScrobles.user.playcount.ToString()}")
+                    .Build());
+            }
         }
 
         // Clear Last.FM
