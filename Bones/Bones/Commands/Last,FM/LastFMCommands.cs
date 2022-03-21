@@ -102,7 +102,7 @@ namespace Bones.Commands.Last_FM
 
         // Get FM Tracks from a set time
         [Command("fm tracks")]
-        public async Task GetFMTracks([Optional]string timeframe)
+        public async Task GetFMTracks([Optional] string timeframe)
         {
             if (String.IsNullOrWhiteSpace(timeframe))
             {
@@ -151,20 +151,157 @@ namespace Bones.Commands.Last_FM
                     string songname = topSongs.toptracks.track[i].name;
                     string artistLinkName = artistname.Replace(" ", "+");
                     string songLinkName = songname.Replace(" ", "+");
-                    Titlesb.Append($"{i + 1}. [{artistname}]({artistLink+artistLinkName}) - [{songname}]({songLink+artistLinkName}/_/{songLinkName}): **{topSongs.toptracks.track[i].playcount.ToString("#,##0")}** plays\n");
+                    Titlesb.Append($"{i + 1}. [{artistname}]({artistLink + artistLinkName}) - [{songname}]({songLink + artistLinkName}/_/{songLinkName}): **{topSongs.toptracks.track[i].playcount.ToString("#,##0")}** plays\n");
                 }
 
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.WithTitle($"Top Tracks | {timeframeForEmbed}");
                 embed.WithColor(Color.Blue);
                 embed.WithDescription($"{Titlesb}");
-               
+
                 await ReplyAsync("", false, embed.Build());
             }
             else
-            {               
-                await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention} you need to use a proper timeframe: `1month, 3month, 6month, 12month, overall`", Color.Blue, "", "");
+            {
+                await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention} you need to use a proper timeframe: `1month, 3month, 6month, 12month, overall`", Color.Red, "", "");
 
+            }
+        }
+
+        // Exactly the same as the above command just for the artists instead of the songs.
+        [Command("fm artists")]
+        public async Task GetTopArtists([Optional] string timeframe)
+        {
+            var acc = UserAccounts.GetAccount(Context.User);
+            string embedTitle = "";
+            // if timeframe isn't provided, it just shows the weekly stats.
+            if (String.IsNullOrWhiteSpace(timeframe))
+            {
+                timeframe = "7day";
+            }
+            if (timeframe == "7day" || timeframe == "1month" || timeframe == "3month" || timeframe == "6month" || timeframe == "12month" || timeframe == "all")
+            {
+                // Swicth case part just so the embed is readable
+                switch (timeframe)
+                {
+                    case "7day":
+                        embedTitle = "Last 7 Days";
+                        break;
+                    case "1month":
+                        embedTitle = "Last 30 Days";
+                        break;
+                    case "3month":
+                        embedTitle = "Last 60 Days";
+                        break;
+                    case "6month":
+                        embedTitle = "Last 180 Days";
+                        break;
+                    case "12month":
+                        embedTitle = "Last 365 Days";
+                        break;
+                    case "all":
+                        embedTitle = "All Time";
+                        break;
+                }
+
+                string lastFMLink = "http://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=" + acc.lastFmUsername + "&api_key=86a285eebdc6aafec7360e6f2c02250e&period=" + timeframe + "&format=json";
+                dynamic topArtists = null;
+                using (WebClient client4 = new WebClient())
+                    topArtists = JsonConvert.DeserializeObject(client4.DownloadString(lastFMLink));
+
+                // starts a fixed loop to get the first 10 artists from the json link
+                int number = 10;
+                StringBuilder artistName = new StringBuilder();
+                string artistLink = "https://www.last.fm/music/";
+
+                for (int i = 0; i < number; i++)
+                {
+                    string artist = topArtists.topartists.artist[i].name;
+                    string LinkToArtist = artist.Replace(" ", "+");
+                    artistName.Append($"{i + 1}. [{artist}]({artistLink + LinkToArtist}): **{topArtists.topartists.artist[i].playcount}** plays\n");
+                }
+
+                await Context.Channel.SendMessageAsync(null, false, new EmbedBuilder()
+                    .WithAuthor(new EmbedAuthorBuilder()
+                        .WithIconUrl(Context.User.GetAvatarUrl())
+                        .WithName(acc.lastFmUsername)
+                        .WithUrl($"https://last.fm/user/" + acc.lastFmUsername))
+                    .WithColor(Color.Blue)
+                   .WithDescription(artistName.ToString())
+                   .WithTitle($"Top Artists | {embedTitle}")
+                    .Build());
+            } else
+            {
+                await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention} you need to use a proper timeframe: `1month, 3month, 6month, 12month, overall`", Color.Red, "", "");
+            }
+        }
+
+        // Get Top Abums. (Ikr who would have seen this one coming :kek:)
+        [Command("fm albums")]
+        public async Task GetTopAlbums([Optional] string timeframe)
+        {
+            if (String.IsNullOrWhiteSpace(timeframe))
+            {
+                timeframe = "7day";
+            }
+            if (timeframe == "7day" || timeframe == "1month" || timeframe == "3month" || timeframe == "6month" || timeframe == "12month" || timeframe == "all")
+            {
+                var acc = UserAccounts.GetAccount(Context.User);
+                string lastFM = "http://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=" + acc.lastFmUsername + "&api_key=" + Config.apiKey.LastFMAPIKey + "&format=json&period="+timeframe;
+                string embedTimeframe = "";
+                dynamic Albums = null;
+                using (WebClient client5 = new WebClient())
+                    Albums = JsonConvert.DeserializeObject(client5.DownloadString(lastFM));
+
+                // Make Embed Look Nicer
+                switch (timeframe)
+                {
+                    case "7day":
+                        embedTimeframe = "Last 7 Days";
+                        break;
+                    case "1month":
+                        embedTimeframe = "Last 30 Days";
+                        break;
+                    case "3month":
+                        embedTimeframe = "Last 90 Days";
+                        break;
+                    case "6month":
+                        embedTimeframe = "Last 180 Days";
+                        break;
+                    case "12month":
+                        embedTimeframe = "Last 365 Days";
+                        break;
+                    case "all":
+                        embedTimeframe = "All Time";
+                        break;
+                }
+
+                StringBuilder AlbumEmbed = new StringBuilder();
+                string lastfmArtist = "https://www.last.fm/music/";
+                int number = 10;
+                for (int i = 0; i < number; i++)
+                {
+                    string albumName = Albums.topalbums.album[i].name;
+                    string artistName = Albums.topalbums.album[i].artist.name;
+                    string ArtistNameToUse = artistName.Replace(" ", "+");
+                    string AlbumNameToUse = albumName.Replace(" ", "+");
+                    string AlbumLink = "https://www.last.fm/music/" + ArtistNameToUse + "/" + AlbumNameToUse;
+                    AlbumEmbed.Append($"{i + 1}. [{artistName}]({lastfmArtist+ArtistNameToUse}) - [{albumName}]({AlbumLink}): **{Albums.topalbums.album[i].playcount}** plays\n");
+                }
+
+                await Context.Channel.SendMessageAsync(null, false, new EmbedBuilder()
+                    .WithAuthor(new EmbedAuthorBuilder()
+                        .WithIconUrl(Context.User.GetAvatarUrl())
+                        .WithName(acc.lastFmUsername)
+                        .WithUrl($"https://last.fm/user/" + acc.lastFmUsername))
+                    .WithColor(Color.Blue)
+                   .WithDescription(AlbumEmbed.ToString())
+                   .WithTitle($"Top Albums | {embedTimeframe}")
+                   .WithThumbnailUrl(Albums.topalbums.album[0].image[3]["#text"].ToString())
+                    .Build());
+            } else
+            {
+                await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention} you need to use a proper timeframe: `1month, 3month, 6month, 12month, overall`", Color.Red, "", "");
             }
         }
     }
