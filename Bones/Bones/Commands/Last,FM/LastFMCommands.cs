@@ -304,5 +304,42 @@ namespace Bones.Commands.Last_FM
                 await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention} you need to use a proper timeframe: `1month, 3month, 6month, 12month, overall`", Color.Red, "", "");
             }
         }
+
+        // Display someone's Last.FM Profile
+        [Command("fmprofile")]
+        [Alias("fm profile")]
+        public async Task DisplayFmProfile()
+        {
+            var account = UserAccounts.GetAccount(Context.User);
+            if (account.lastFmUsername == "not set")
+            {
+                await Utilities.SendEmbed(Context.Channel, "Error", $"{Context.User.Mention} you haven't set up your last.fm within the bot.", Color.Red, "Do .setfm to set your last.fm username", "");
+            } else
+            {
+                string profileUrl = "https://last.fm/user/" + account.lastFmUsername;
+                string profileLink = "https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=" + account.lastFmUsername + "&api_key=" + Config.apiKey.LastFMAPIKey + "&format=json";
+                dynamic profile = null;
+                using (WebClient client6 = new WebClient())
+                    profile = JsonConvert.DeserializeObject(client6.DownloadString(profileLink));
+
+                // Get date of when they joined last.fm
+                double unixTime = profile.user.registered["#text"];
+                DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                dateTime = dateTime.AddSeconds(unixTime).ToLocalTime();
+
+                await Context.Channel.SendMessageAsync(null, false, new EmbedBuilder()
+                    .WithAuthor(new EmbedAuthorBuilder()
+                        .WithIconUrl(Context.User.GetAvatarUrl())
+                        .WithName(account.lastFmUsername)
+                        .WithUrl(profileUrl))
+                    .WithColor(Color.Blue)
+                    .WithFooter($"Total plays: {profile.user.playcount.ToString()}")
+                   .AddField("Profile", $"[Link]({profileUrl})", inline: true)
+                   .AddField("Registered", $"{dateTime.ToString("dd/MM//yyyy")}", inline: true)
+                   .AddField("Country", $"{profile.user.country.ToString()}", inline: true)
+                   .WithThumbnailUrl(profile.user.image[3]["#text"].ToString())
+                    .Build());
+            }
+        }
     }
 }
