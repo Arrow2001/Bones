@@ -106,8 +106,11 @@ namespace Bones.Commands.Last_FM
 
         // Get FM Tracks from a set time
         [Command("fm tracks")]
-        public async Task GetFMTracks([Optional] string timeframe)
+        public async Task GetFMTracks([Optional] string timeframe, SocketGuildUser user = null)
         {
+            if (user == null)
+                user = (SocketGuildUser)Context.User;
+
             if (String.IsNullOrWhiteSpace(timeframe))
             {
                 timeframe = "7day";
@@ -138,7 +141,7 @@ namespace Bones.Commands.Last_FM
 
             if (timeframe == "7day" || timeframe == "1month" || timeframe == "3month" || timeframe == "6month" || timeframe == "12month" || timeframe == "all")
             {
-                var acc = UserAccounts.GetAccount(Context.User);
+                var acc = UserAccounts.GetAccount(user);
                 string link = "http://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=" + acc.lastFmUsername + "&api_key=" + Config.apiKey.LastFMAPIKey + "&period=" + timeframe + "&format=json";
 
                 dynamic topSongs = null;
@@ -167,16 +170,19 @@ namespace Bones.Commands.Last_FM
             }
             else
             {
-                await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention} you need to use a proper timeframe: `1month, 3month, 6month, 12month, overall`", Color.Red, "", "");
+                await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention} you need to use a proper timeframe: `7day, 1month, 3month, 6month, 12month, overall`", Color.Red, "", "");
 
             }
         }
 
         // Exactly the same as the above command just for the artists instead of the songs.
         [Command("fm artists")]
-        public async Task GetTopArtists([Optional] string timeframe)
+        public async Task GetTopArtists([Optional] string timeframe, SocketGuildUser user = null)
         {
-            var acc = UserAccounts.GetAccount(Context.User);
+            if (user == null)
+                user = (SocketGuildUser)Context.User;
+
+            var acc = UserAccounts.GetAccount(user);
             string embedTitle = "";
             // if timeframe isn't provided, it just shows the weekly stats.
             if (String.IsNullOrWhiteSpace(timeframe))
@@ -227,7 +233,7 @@ namespace Bones.Commands.Last_FM
 
                 await Context.Channel.SendMessageAsync(null, false, new EmbedBuilder()
                     .WithAuthor(new EmbedAuthorBuilder()
-                        .WithIconUrl(Context.User.GetAvatarUrl())
+                        .WithIconUrl(user.GetAvatarUrl())
                         .WithName(acc.lastFmUsername)
                         .WithUrl($"https://last.fm/user/" + acc.lastFmUsername))
                     .WithColor(Color.Blue)
@@ -236,21 +242,23 @@ namespace Bones.Commands.Last_FM
                     .Build());
             } else
             {
-                await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention} you need to use a proper timeframe: `1month, 3month, 6month, 12month, overall`", Color.Red, "", "");
+                await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention} you need to use a proper timeframe: `7day`, `1month`, `3month`, `6month`, `12month`, `overall`", Color.Red, "", "");
             }
         }
 
         // Get Top Abums. (Ikr who would have seen this one coming :kek:)
         [Command("fm albums")]
-        public async Task GetTopAlbums([Optional] string timeframe)
+        public async Task GetTopAlbums([Optional] string timeframe, SocketGuildUser user = null)
         {
             if (String.IsNullOrWhiteSpace(timeframe))
-            {
                 timeframe = "7day";
-            }
+
+            if (user == null)
+                user = (SocketGuildUser)Context.User;
+            
             if (timeframe == "7day" || timeframe == "1month" || timeframe == "3month" || timeframe == "6month" || timeframe == "12month" || timeframe == "all")
             {
-                var acc = UserAccounts.GetAccount(Context.User);
+                var acc = UserAccounts.GetAccount(user);
                 string lastFM = "http://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=" + acc.lastFmUsername + "&api_key=" + Config.apiKey.LastFMAPIKey + "&format=json&period="+timeframe;
                 string embedTimeframe = "";
                 dynamic Albums = null;
@@ -295,7 +303,7 @@ namespace Bones.Commands.Last_FM
 
                 await Context.Channel.SendMessageAsync(null, false, new EmbedBuilder()
                     .WithAuthor(new EmbedAuthorBuilder()
-                        .WithIconUrl(Context.User.GetAvatarUrl())
+                        .WithIconUrl(user.GetAvatarUrl())
                         .WithName(acc.lastFmUsername)
                         .WithUrl($"https://last.fm/user/" + acc.lastFmUsername))
                     .WithColor(Color.Blue)
@@ -305,16 +313,19 @@ namespace Bones.Commands.Last_FM
                     .Build());
             } else
             {
-                await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention} you need to use a proper timeframe: `1month, 3month, 6month, 12month, overall`", Color.Red, "", "");
+                await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention} you need to use a proper timeframe: `7day`, `1month`, `3month`, `6month`, `12month`, `overall`", Color.Red, "", "");
             }
         }
 
         // Display someone's Last.FM Profile
         [Command("fmprofile")]
         [Alias("fm profile")]
-        public async Task DisplayFmProfile()
+        public async Task DisplayFmProfile(SocketGuildUser user = null)
         {
-            var account = UserAccounts.GetAccount(Context.User);
+            if (user == null)
+                user = (SocketGuildUser)Context.User;
+
+            var account = UserAccounts.GetAccount(user);
             if (account.lastFmUsername == "not set")
             {
                 await Utilities.SendEmbed(Context.Channel, "Error", $"{Context.User.Mention} you haven't set up your last.fm within the bot.", Color.Red, "Do .setfm to set your last.fm username", "");
@@ -333,7 +344,7 @@ namespace Bones.Commands.Last_FM
 
                 await Context.Channel.SendMessageAsync(null, false, new EmbedBuilder()
                     .WithAuthor(new EmbedAuthorBuilder()
-                        .WithIconUrl(Context.User.GetAvatarUrl())
+                        .WithIconUrl(user.GetAvatarUrl())
                         .WithName(account.lastFmUsername)
                         .WithUrl(profileUrl))
                     .WithColor(Color.Blue)
