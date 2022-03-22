@@ -42,51 +42,55 @@ namespace Bones.Commands.Last_FM
 
         // Show Now Playing
         [Command("fm")]
-        public async Task DispalyFM()
+        public async Task DispalyFM(SocketGuildUser user = null)
         {
-            string footer = "";
-            var account = UserAccounts.GetAccount(Context.User);
-            if (account.lastFmUsername == "not set")
-            {
-                await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention}, you don't have your Last.FM set up.", Color.Blue, "Do .setfm to set up your last.fm", "");
-            }
-            else
-            {
-                string link1 = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=";
-                dynamic stuff = null;
-                using (WebClient client = new WebClient())
-                    stuff = JsonConvert.DeserializeObject(client.DownloadString(link1 + account.lastFmUsername + $"&api_key={Config.apiKey.LastFMAPIKey}&format=json"));
+                if (user == null)
+                  user = (SocketGuildUser)Context.User;
 
-                if (stuff.recenttracks.track[0]["@attr"] != null)
+                string footer = "";
+                var account = UserAccounts.GetAccount(user);
+                if (account.lastFmUsername == "not set")
                 {
-                    footer = "Now Playing";
+                    await Utilities.SendEmbed(Context.Channel, "Last.FM", $"{Context.User.Mention}, you don't have your Last.FM set up.", Color.Blue, "Do .setfm to set up your last.fm", "");
                 }
                 else
                 {
-                    footer = "Most Recent Track";
+                    string link1 = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=";
+                    dynamic stuff = null;
+                    using (WebClient client = new WebClient())
+                        stuff = JsonConvert.DeserializeObject(client.DownloadString(link1 + account.lastFmUsername + $"&api_key={Config.apiKey.LastFMAPIKey}&format=json"));
+
+                    if (stuff.recenttracks.track[0]["@attr"] != null)
+                    {
+                        footer = "Now Playing";
+                    }
+                    else
+                    {
+                        footer = "Most Recent Track";
+                    }
+
+                    // Total Scrobbles: http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=iain2001&api_key=e21d20db54e49075a60b72239c173277&format=json
+                    dynamic totalScrobles = null;
+                    using (WebClient client2 = new WebClient())
+                        totalScrobles = JsonConvert.DeserializeObject(client2.DownloadString("http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=" + account.lastFmUsername + "&api_key=" + Config.apiKey.LastFMAPIKey + "&format=json"));
+
+                    string artistLink = "https://last.fm/music/";
+                    string bLink = stuff.recenttracks.track[0].artist["#text"];
+                    string cLink = bLink.Replace(" ", "+");
+                    string LinkToUse = artistLink + cLink;
+                    await Context.Channel.SendMessageAsync(null, false, new EmbedBuilder()
+                        .WithAuthor(new EmbedAuthorBuilder()
+                            .WithIconUrl(user.GetAvatarUrl())
+                            .WithName(account.lastFmUsername)
+                            .WithUrl($"https://last.fm/user/" + account.lastFmUsername))
+                        .WithColor(Color.Green)
+                        .AddField("Artist", $"[{stuff.recenttracks.track[0].artist["#text"].ToString()}]({LinkToUse})", true)
+                        .AddField("Track", $"[{stuff.recenttracks.track[0].name.ToString()}]({stuff.recenttracks.track[0].url.ToString()})", true)
+                        .WithThumbnailUrl(stuff.recenttracks.track[0].image[3]["#text"].ToString())
+                        .WithFooter($"{footer} | Total Scrobbles: {totalScrobles.user.playcount.ToString()}")
+                        .Build());
                 }
-
-                // Total Scrobbles: http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=iain2001&api_key=e21d20db54e49075a60b72239c173277&format=json
-                dynamic totalScrobles = null;
-                using (WebClient client2 = new WebClient())
-                    totalScrobles = JsonConvert.DeserializeObject(client2.DownloadString("http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=" + account.lastFmUsername + "&api_key=" + Config.apiKey.LastFMAPIKey + "&format=json"));
-
-                string artistLink = "https://last.fm/music/";
-                string bLink = stuff.recenttracks.track[0].artist["#text"];
-                string cLink = bLink.Replace(" ", "+");
-                string LinkToUse = artistLink + cLink;
-                await Context.Channel.SendMessageAsync(null, false, new EmbedBuilder()
-                    .WithAuthor(new EmbedAuthorBuilder()
-                        .WithIconUrl(Context.User.GetAvatarUrl())
-                        .WithName(account.lastFmUsername)
-                        .WithUrl($"https://last.fm/user/" + account.lastFmUsername))
-                    .WithColor(Color.Green)
-                    .AddField("Artist", $"[{stuff.recenttracks.track[0].artist["#text"].ToString()}]({LinkToUse})", true)
-                    .AddField("Track", $"[{stuff.recenttracks.track[0].name.ToString()}]({stuff.recenttracks.track[0].url.ToString()})", true)
-                    .WithThumbnailUrl(stuff.recenttracks.track[0].image[3]["#text"].ToString())
-                    .WithFooter($"{footer} | Total Scrobbles: {totalScrobles.user.playcount.ToString()}")
-                    .Build());
-            }
+            
         }
 
         // Clear Last.FM
