@@ -356,5 +356,35 @@ namespace Bones.Commands.Last_FM
                     .Build());
             }
         }
+
+        // Show last 15 tracks played
+        [Command("fm recent")]
+        public async Task ShowRecentlyPlayed(SocketGuildUser user = null)
+        {
+            if (user == null)
+                user = (SocketGuildUser)Context.User;
+
+            var account = UserAccounts.GetAccount(user);
+            string RecentTracks = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=" + account.lastFmUsername + "&api_key=" + Config.apiKey.LastFMAPIKey + "&format=json";
+            dynamic stuff = null;
+            using (WebClient client7 = new WebClient())
+                stuff = JsonConvert.DeserializeObject(client7.DownloadString(RecentTracks));
+
+            StringBuilder songs = new StringBuilder();
+            for (int i = 0; i < 15; i++)
+            {
+                songs.Append($"**{stuff.recenttracks.track[i].artist["#text"].ToString()}** - **{stuff.recenttracks.track[i].name.ToString()}**\n");
+            }
+
+            await Context.Channel.SendMessageAsync(null, false, new EmbedBuilder()
+                    .WithAuthor(new EmbedAuthorBuilder()
+                        .WithIconUrl(user.GetAvatarUrl())
+                        .WithName(account.lastFmUsername))
+                    .WithColor(Color.Blue)
+                    .WithFooter($"Total plays: {stuff.recenttracks["@attr"].total.ToString()}")
+                    .WithDescription(songs.ToString())
+                    .WithThumbnailUrl(stuff.recenttracks.track[0].image[3]["#text"].ToString())
+                    .Build());
+        }
     }
 }
