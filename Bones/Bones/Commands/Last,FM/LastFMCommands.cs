@@ -12,6 +12,7 @@ using System.Net;
 using Discord;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Bones.Commands.Last_FM
 {
@@ -379,12 +380,41 @@ namespace Bones.Commands.Last_FM
             await Context.Channel.SendMessageAsync(null, false, new EmbedBuilder()
                     .WithAuthor(new EmbedAuthorBuilder()
                         .WithIconUrl(user.GetAvatarUrl())
-                        .WithName(account.lastFmUsername))
+                        .WithName($"{user.Nickname ?? user.Username}'s - Recent Tracks"))
                     .WithColor(Color.Blue)
                     .WithFooter($"Total plays: {stuff.recenttracks["@attr"].total.ToString()}")
                     .WithDescription(songs.ToString())
                     .WithThumbnailUrl(stuff.recenttracks.track[0].image[3]["#text"].ToString())
                     .Build());
+        }
+
+        // Show artist info
+        [Command("artistinfo")]
+        [Alias("artist info", "infoartist", "info artist")]
+        public async Task GetArtistInfo([Remainder]string artist)
+        {
+            string artistName = "";
+            if (artist.Contains(" "))
+            {
+                artistName = artist.Replace(" ", "+");
+            }
+            //Taylor+Swift&api_key=e21d20db54e49075a60b72239c173277&format=json
+            string link = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + artistName + "&api_key=" + Config.apiKey.LastFMAPIKey + "&format=json";
+            dynamic artistStuff = null;
+            using (WebClient client8 = new WebClient())
+                artistStuff = JsonConvert.DeserializeObject(client8.DownloadString(link));
+            string summary = artistStuff.artist.bio.summary.ToString();
+            string summaryToUse = Regex.Replace(summary, @"<a\b[^>]+>([^<]*(?:(?!</a)<[^<]*)*)</a>", " "); // Get rid of the ugly <a> tag from the json
+
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.WithTitle($"{artistStuff.artist.name.ToString()}'s Artist Overview");
+            embed.AddField("Summary", summaryToUse.ToString());
+            embed.AddField("Listeners", $"{artistStuff.artist.stats.playcount.ToString()}");
+            embed.AddField("Tags", $"{artistStuff.artist.tags.tag[0].name.ToString()}, {artistStuff.artist.tags.tag[1].name.ToString()}, {artistStuff.artist.tags.tag[2].name.ToString()}");
+            embed.WithColor(Color.Blue);
+            embed.WithFooter($"");
+
+            await ReplyAsync("", false, embed.Build());
         }
     }
 }
