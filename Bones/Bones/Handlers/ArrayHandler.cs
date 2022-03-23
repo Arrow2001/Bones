@@ -39,7 +39,8 @@ namespace Bones.Handlers
             "FBI Agent Discord, {0} identifies bodies for us. They also write books!",
             "Squints don't solve murders, {0} does!",
             "A body, covered in acid. Yeah, that should help {0} with the nausea!",
-            "Out the blue, life's energy. Out the blue, {0} came to us!"
+            "Out the blue, life's energy. Out the blue, {0} came to us!",
+            "{0} will live by the bone and die by the bone!"
         };
     }
 }
