@@ -50,16 +50,19 @@ namespace Bones.Commands
 
         // Show the botinfo stored for the user
         [Command("userinfo")]
-        public async Task ShowUserInfo()
+        public async Task ShowUserInfo(SocketGuildUser user = null)
         {
-            var acc = UserAccounts.GetAccount(Context.User);
+            if (user == null)
+                user = (SocketGuildUser)Context.User;
+
+            var acc = UserAccounts.GetAccount(user);
             EmbedBuilder embed = new EmbedBuilder();
             embed.WithTitle($"{Context.User.Username}'s UserInfo");
             embed.AddField($"User ID", acc.UserID);
             embed.AddField($"Bones", acc.Bones);
             embed.AddField($"Last.FM Username", acc.lastFmUsername);
             embed.WithColor(Color.Blue);
-            embed.WithThumbnailUrl(Context.User.GetAvatarUrl());
+            embed.WithThumbnailUrl(user.GetAvatarUrl());
             await ReplyAsync("", false, embed.Build());
         }
 
