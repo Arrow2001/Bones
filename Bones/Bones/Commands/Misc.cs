@@ -100,5 +100,41 @@ namespace Bones.Commands
             await msg.AddReactionAsync(new Emoji("◀️"));
             await msg.AddReactionAsync(new Emoji("▶️"));
         }
+
+        // Rock Paper Scissors
+        [Command("rps")]
+        public async Task RockPaperScissors([Remainder]string choice)
+        {
+            var acc = UserAccounts.GetAccount(Context.User);
+            if (choice == "r" || choice == "p" || choice == "s" || String.IsNullOrWhiteSpace(choice))
+            {
+                string botChoice = ArrayHandler.RPSoptions[Utilities.GetRandomNumber(0, ArrayHandler.RPSoptions.Length)];
+
+                switch (choice) {
+                    case "r":
+                        choice = "rock";
+                        break;
+                    case "p":
+                        choice = "paper";
+                        break;
+                    case "s":
+                        choice = "scissors";
+                        break;
+                }
+
+                if (botChoice == choice)
+                {
+                    await Utilities.SendEmbed(Context.Channel, "Rock Paper Scissors", $"You picked :{choice}:, I picked :{botChoice}:.\nIt's a tie!", Color.Gold, "", "");
+                } else if (choice == "rock" && botChoice == "paper" || choice == "paper" && botChoice == "scissors" || choice == "scissors" && botChoice == "paper")
+                {
+                    acc.Bones += 10;
+                    await Utilities.SendEmbed(Context.Channel, "Rock Paper Scissors", $"You picked :{choice}:, I picked :{botChoice}.\nYou win! You have been given 10 bones! You now have: {acc.Bones} bones!", Color.Green, "", "");
+                    UserAccounts.SaveAccounts();
+                } else
+                {
+                    await Utilities.SendEmbed(Context.Channel, "Rock Paper Scissors", $"You picked :{choice}:, I picked :{botChoice}.\nYou lost!", Color.Red, "", "");
+                }
+            }
+        }
     }
 }

@@ -42,5 +42,12 @@ namespace Bones.Handlers
             "Out the blue, life's energy. Out the blue, {0} came to us!",
             "{0} will live by the bone and die by the bone!"
         };
+
+        static public string[] RPSoptions =
+        {
+            "rock",
+            "paper",
+            "scissors"
+        };
     }
 }
