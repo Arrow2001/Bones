@@ -106,7 +106,7 @@ namespace Bones.Commands
         public async Task RockPaperScissors([Remainder]string choice)
         {
             var acc = UserAccounts.GetAccount(Context.User);
-            if (choice == "r" || choice == "p" || choice == "s" || String.IsNullOrWhiteSpace(choice))
+            if (choice == "r" || choice == "p" || choice == "s" || string.IsNullOrWhiteSpace(choice) || string.IsNullOrEmpty(choice))
             {
                 string botChoice = ArrayHandler.RPSoptions[Utilities.GetRandomNumber(0, ArrayHandler.RPSoptions.Length)];
 
@@ -115,7 +115,7 @@ namespace Bones.Commands
                         choice = "rock";
                         break;
                     case "p":
-                        choice = "paper";
+                        choice = "newspaper";
                         break;
                     case "s":
                         choice = "scissors";
@@ -125,15 +125,18 @@ namespace Bones.Commands
                 if (botChoice == choice)
                 {
                     await Utilities.SendEmbed(Context.Channel, "Rock Paper Scissors", $"You picked :{choice}:, I picked :{botChoice}:.\nIt's a tie!", Color.Gold, "", "");
-                } else if (choice == "rock" && botChoice == "paper" || choice == "paper" && botChoice == "scissors" || choice == "scissors" && botChoice == "paper")
+                } else if (choice == "newspaper" && botChoice == "rock" || choice == "paper" && botChoice == "scissors" || choice == "scissors" && botChoice == "newspaper" || choice == "rock" && botChoice == "scissors")
                 {
                     acc.Bones += 10;
-                    await Utilities.SendEmbed(Context.Channel, "Rock Paper Scissors", $"You picked :{choice}:, I picked :{botChoice}.\nYou win! You have been given 10 bones! You now have: {acc.Bones} bones!", Color.Green, "", "");
+                    await Utilities.SendEmbed(Context.Channel, "Rock Paper Scissors", $"You picked :{choice}:, I picked :{botChoice}:.\nYou win! You have been given 10 bones! You now have: {acc.Bones} bones!", Color.Green, "", "");
                     UserAccounts.SaveAccounts();
                 } else
                 {
-                    await Utilities.SendEmbed(Context.Channel, "Rock Paper Scissors", $"You picked :{choice}:, I picked :{botChoice}.\nYou lost!", Color.Red, "", "");
+                    await Utilities.SendEmbed(Context.Channel, "Rock Paper Scissors", $"You picked :{choice}:, I picked :{botChoice}:.\nYou lost!", Color.Red, "", "");
                 }
+            } else
+            {
+                await Utilities.SendEmbed(Context.Channel, "Error", "You need to add `r`, `p` or `s` to give your choice. e.g. `.rps r` would be rock", Color.Red, "", "");
             }
         }
     }

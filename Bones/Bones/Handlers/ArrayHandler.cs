@@ -46,7 +46,7 @@ namespace Bones.Handlers
         static public string[] RPSoptions =
         {
             "rock",
-            "paper",
+            "newspaper",
             "scissors"
         };
     }
