@@ -40,7 +40,8 @@ namespace Bones.Handlers
             "Squints don't solve murders, {0} does!",
             "A body, covered in acid. Yeah, that should help {0} with the nausea!",
             "Out the blue, life's energy. Out the blue, {0} came to us!",
-            "{0} will live by the bone and die by the bone!"
+            "{0} will live by the bone and die by the bone!",
+            "Squints of the world unite, {0} has arrived!"
         };
 
         static public string[] RPSoptions =

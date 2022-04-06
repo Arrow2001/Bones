@@ -94,6 +94,7 @@ namespace Bones.Commands
             embed.AddField(".bonefact", "Sends a random fact about bones");
             embed.AddField(".userinfo", "Shows your information that is saved in the bot");
             embed.AddField(".tv", "Sends a random episode of Bones");
+            embed.AddField(".rps", "Play a game of Rock, Paper, Scissors.");
             embed.WithColor(Color.Blue);
             msg = await Context.Channel.SendMessageAsync("", false, embed.Build());
 
