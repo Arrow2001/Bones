@@ -95,6 +95,8 @@ namespace Bones.Commands
             embed.AddField(".userinfo", "Shows your information that is saved in the bot");
             embed.AddField(".tv", "Sends a random episode of Bones");
             embed.AddField(".rps", "Play a game of Rock, Paper, Scissors.");
+            embed.AddField(".setfav/.fav", "Set or display your favourite Bones episodes.");
+            embed.AddField(".daily", "Claim 100 Bones once per day.");
             embed.WithColor(Color.Blue);
             msg = await Context.Channel.SendMessageAsync("", false, embed.Build());
 
@@ -104,7 +106,7 @@ namespace Bones.Commands
 
         // Rock Paper Scissors
         [Command("rps")]
-        public async Task RockPaperScissors([Remainder]string choice)
+        public async Task RockPaperScissors([Remainder] string choice)
         {
             var acc = UserAccounts.GetAccount(Context.User);
             if (choice == "r" || choice == "p" || choice == "s" || string.IsNullOrWhiteSpace(choice) || string.IsNullOrEmpty(choice))
@@ -139,6 +141,56 @@ namespace Bones.Commands
             {
                 await Utilities.SendEmbed(Context.Channel, "Error", "You need to add `r`, `p` or `s` to give your choice. e.g. `.rps r` would be rock", Color.Red, "", "");
             }
+        }
+
+        // Set your favourite episodes
+        [Command("setfav")]
+        public async Task SetFav([Remainder]string list)
+        {
+            var acc = UserAccounts.GetAccount(Context.User);
+            acc.favEpisodes = list;
+            UserAccounts.SaveAccounts();
+            await Utilities.SendEmbed(Context.Channel, "", $"set favourites to: {list}", Color.Green, "", "");
+        }
+
+        // Show fav
+        [Command("fav")]
+        public async Task ShowFav()
+        {
+            var acc = UserAccounts.GetAccount(Context.User);
+            var user = (SocketGuildUser)Context.User;
+            await Utilities.SendEmbed(Context.Channel, $"{user.Nickname ?? user.Username}'s Favourite Episodes", acc.favEpisodes, Color.Green, "", "");
+        }
+
+        // daily
+        [Command("daily")]
+        public async Task Daily()
+        {
+            var acc = UserAccounts.GetAccount(Context.User);
+            if (acc.DailyClaimed == false)
+            {
+                acc.Bones += 100;
+                await Utilities.SendEmbed(Context.Channel, "Daily", $"{Context.User.Mention} you have claimed your 100 daily bones.", Color.Blue, "", "");
+                acc.DailyClaimed = true;
+                UserAccounts.SaveAccounts();
+            } else
+            {
+                await Utilities.SendEmbed(Context.Channel, "Error", $"{Context.User.Mention}, you have already claimed your daily bones!", Color.Red, "", "");
+            }
+        }
+
+        // reset daily until I code it better lol
+        [Command("resetdaily")]
+        [RequireRoleSilently("Admins")]
+        public async Task ResetDailies()
+        {
+            foreach (var user in Context.Guild.Users)
+            {
+                var acc = UserAccounts.GetAccount(user);
+                acc.DailyClaimed = false;
+                UserAccounts.SaveAccounts();
+            }
+            await Context.Channel.SendMessageAsync($"Reset everyone's dailies!");
         }
     }
 }

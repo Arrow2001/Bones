@@ -39,7 +39,9 @@ namespace Bones.Currency.UserData
             {
                 UserID = id,
                 Bones = 0,
-                lastFmUsername = "not set"
+                lastFmUsername = "not set",
+                favEpisodes = "",
+                DailyClaimed = false
             };
             accounts.Add(newAccount);
             SaveAccounts();
