@@ -44,7 +44,6 @@ C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\bin\Debug\netcoreapp3.
 C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\bin\Debug\netcoreapp3.1\System.Linq.Async.dll
 C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\bin\Debug\netcoreapp3.1\System.Reactive.dll
 C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\bin\Debug\netcoreapp3.1\System.Reactive.xml
-C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\obj\Debug\netcoreapp3.1\Bones.csprojAssemblyReference.cache
 C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\obj\Debug\netcoreapp3.1\Bones.AssemblyInfoInputs.cache
 C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\obj\Debug\netcoreapp3.1\Bones.AssemblyInfo.cs
 C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\obj\Debug\netcoreapp3.1\Bones.csproj.CoreCompileInputs.cache
@@ -54,3 +53,5 @@ C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\obj\Debug\netcoreapp3.
 C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\obj\Debug\netcoreapp3.1\Bones.genruntimeconfig.cache
 C:\Users\IainN\Desktop\Bones\Bones\Bones\bin\Debug\netcoreapp3.1\Discord.InteractivityAddon.Labs.dll
 C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\bin\Debug\netcoreapp3.1\Discord.InteractivityAddon.Labs.dll
+C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\obj\Debug\netcoreapp3.1\Bones.csproj.AssemblyReference.cache
+C:\Users\IainN\OneDrive\Desktop\Discord\Bones\Bones\Bones\obj\Debug\netcoreapp3.1\Bones.GeneratedMSBuildEditorConfig.editorconfig
