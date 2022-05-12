@@ -180,7 +180,7 @@ namespace Bones.Commands
         }
 
         // reset daily until I code it better lol
-        [Command("resetdaily")]
+        [Command("resetdaily", RunMode = RunMode.Async)]
         [RequireRoleSilently("Admins")]
         public async Task ResetDailies()
         {
