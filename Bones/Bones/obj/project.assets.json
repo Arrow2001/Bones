@@ -535,11 +535,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\IainN\\Desktop\\Bones\\Bones\\Bones\\Bones.csproj",
+      "projectUniqueName": "C:\\Users\\IainN\\OneDrive\\Desktop\\Discord\\Bones\\Bones\\Bones\\Bones.csproj",
       "projectName": "Bones",
-      "projectPath": "C:\\Users\\IainN\\Desktop\\Bones\\Bones\\Bones\\Bones.csproj",
+      "projectPath": "C:\\Users\\IainN\\OneDrive\\Desktop\\Discord\\Bones\\Bones\\Bones\\Bones.csproj",
       "packagesPath": "C:\\Users\\IainN\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\IainN\\Desktop\\Bones\\Bones\\Bones\\obj\\",
+      "outputPath": "C:\\Users\\IainN\\OneDrive\\Desktop\\Discord\\Bones\\Bones\\Bones\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\IainN\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -550,7 +550,8 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://www.myget.org/F/discord-net/api/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
@@ -592,7 +593,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
       }
     }
   }
